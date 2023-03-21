@@ -36,18 +36,18 @@ class HBNBCommand(cmd.Cmd):
             print('(hbnb)')
 
     def precmd(self, line):
-        """processes entry for use by other comands.
+        """ processes user entry fo usage by other commands
 
-        Usage: create <class name> <param 1> <parma 2> <param 3>...)
+        Usage: create <Class name> <param 1> <param 2> <param 3>...
         """
-        _cmd = _cls = _id = _args = ''  # initialize line elements
+        _cmd = _cls = _id = _params = ''  # initialize line elements
 
-        # scan for general formatting - i.e '.' '(', ')'
+        # scan for general formating - i.e '.', '(', ')'
         if not ('=' in line in line):
             return line
 
-        try: # parse line left to right
-            pline = line[:] # parsed line
+        try:  # parse line left to right
+            pline = line[:]  # parsed line
             lst = pline.split()
             # isolate <command>
             _cmd = lst[0]
@@ -92,29 +92,30 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
-        splitedArgs = args.split()
+        params = args.split()
+
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        elif params[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[splitedArgs[0]]()
-        keyValueDict = {}
-        for args in splitedArgs[1:]:
-            keyValue = args.split('=')
-            if '"' in keyValue[1]:
-                value = keyValue[1].replace('"', '').replace('_', ' ')
-                keyValueDict[keyValue[0]] = value
+        new_instance = HBNBCommand.classes[params[0]]()
+        kv_dict = {}
+        for i in params[1:]:
+            kv = i.split('=')
+            if '"' in kv[1]:
+                value = kv[1].replace('"', '').replace('_', ' ')
+                kv_dict[kv[0]] = value
             else:
                 try:
-                    if '.' in keyValue[1]:
-                        keyValueDict[keyValue[0]] = float(keyValue[1])
+                    if '.' in kv[1]:
+                        kv_dict[kv[0]] = float(kv[1])
                     else:
-                        keyValueDict[keyValue[0]] = int(keyValue[1])
+                        kv_dict[kv[0]] = int(kv[1])
                 except ValueError:
                     pass
-        new_instance.__dict__.update(keyValueDict)
+        new_instance.__dict__.update(kv_dict)
         storage.save()
         print(new_instance.id)
         storage.save()
@@ -312,6 +313,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
