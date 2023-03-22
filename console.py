@@ -116,10 +116,8 @@ class HBNBCommand(cmd.Cmd):
                 except ValueError:
                     pass
         new_instance.__dict__.update(kv_dict)
-        storage.new(new_instance)
-        storage.save()
+        new_instance.save()
         print(new_instance.id)
-        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
