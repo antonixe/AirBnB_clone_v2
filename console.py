@@ -2,6 +2,7 @@
 """ Console Module """
 import cmd
 import sys
+import copy
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -180,7 +181,7 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            del(storage.all()[key])
+            del(storage._Filestorage__objects[key])
             storage.save()
         except KeyError:
             print("** no instance found **")
@@ -193,6 +194,7 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
         print_list = []
+        obj = {}
 
         if args:
             args = args.split(' ')[0]  # remove possible trailing args
@@ -205,7 +207,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             for k, v in storage.all().items():
                 print_list.append(str(v))
-
         print(print_list)
 
     def help_all(self):
@@ -216,7 +217,7 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, args):
         """Count current number of class instances"""
         count = 0
-        for k, v in storage.all().items():
+        for k, v in storage._FileStorage__objects.items():
             if args == k.split('.')[0]:
                 count += 1
         print(count)
