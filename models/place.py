@@ -20,7 +20,7 @@ if getenv('HBNB_TYPE_STORAGE') == 'db':
                                  primary_key=True,
                                  nullable=False))
 
-
+    
 class Place(BaseModel, Base):
     """Representation of Place """
     if getenv('HBNB_TYPE_STORAGE') == 'db':
@@ -54,7 +54,7 @@ class Place(BaseModel, Base):
         amenities = relationship("Amenity",
                                  secondary='place_amenity',
                                  viewonly=False,
-                                 backref="place_amenities")
+                                 backref="amenities")
     else:
         city_id = ""
         user_id = ""
