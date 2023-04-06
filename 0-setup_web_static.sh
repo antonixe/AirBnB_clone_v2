@@ -13,27 +13,27 @@ fi
 
 # Create the folder /data/ if it doesn’t already exist
 if [ ! -d '/data/' ]; then
-        sudo mkdir /data
+        sudo mkdir -p /data
 fi
 
 # Create the folder /data/web_static/ if it doesn’t already exist
 if [ ! -d '/data/web_static/' ]; then
-        sudo mkdir /data/web_static/
+        sudo mkdir -p /data/web_static/
 fi
 
 # Create the folder /data/web_static/releases/ if it doesn’t already exist
 if [ ! -d '/data/web_static/releases/' ]; then
-        sudo mkdir /data/web_static/releases/
+        sudo mkdir -p /data/web_static/releases/
 fi
 
 # Create the folder /data/web_static/shared/ if it doesn’t already exist
 if [ ! -d '/data/web_static/shared/' ]; then
-        sudo mkdir /data/web_static/shared/
+        sudo mkdir -p /data/web_static/shared/
 fi
 
 # Create the folder /data/web_static/releases/test/ if it doesn’t already exist
 if [ ! -d '/data/web_static/releases/test/' ]; then
-        sudo mkdir /data/web_static/releases/test/
+        sudo mkdir -p /data/web_static/releases/test/
 fi
 
 # Create a fake HTML file /data/web_static/releases/test/index.html (with simple content, to test your Nginx configuration)
@@ -59,8 +59,7 @@ sudo chown -R ubuntu:ubuntu /data/
 # Update the Nginx configuration to serve the content of /data/web_static/current/ to hbnb_static (ex: https://mydomainname.tech/hbnb_static
 sudo sed -i '/server_name _;/a \ \tlocation /hbnb_static {\n\t\talias /data/web_static/current;\n\t}\n' /etc/nginx/sites-available/default
 
-sudo nginx -t
 
 if sudo nginx -t >/dev/null 2>&1; then
-        sudo service nginx restart
+        sudo service nginx start
 fi
