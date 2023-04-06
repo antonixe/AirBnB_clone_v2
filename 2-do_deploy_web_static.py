@@ -25,8 +25,11 @@ def do_deploy(archive_path):
         put(archive_path, "/tmp/")
 
         # Extract the files from the archive to a new release directory
-        run("sudo tar -xvzf /tmp/{} -C {} --strip-components=1".format(
-            os.path.basename(archive_path), remote_path))
+        run("sudo mkdir -p {}{}".format(remote_path, os.path.basename(
+            archive_path).replace(".tgz", "").replace(".tar.gz", "")))
+        run("sudo tar -xzf /tmp/{} -C {}{}/".format(os.path.basename(
+            archive_path), remote_path, os.path.basename(
+                archive_path).replace(".tgz", "").replace(".tar.gz", "")))
 
         # Remove the archive file from the remote server
         run("sudo rm /tmp/{}".format(os.path.basename(archive_path)))
