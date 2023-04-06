@@ -21,5 +21,5 @@ def do_pack():
 
         local("tar -cvzf versions/{} web_static".format(archive_name))
         return "versions/{}".format(archive_name)
-    except (subprocess.CalledProcessError, OSError) as e:
+    except Exception as e:
         return None
