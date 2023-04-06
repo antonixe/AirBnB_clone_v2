@@ -20,7 +20,7 @@ if getenv('HBNB_TYPE_STORAGE') == 'db':
                                  primary_key=True,
                                  nullable=False))
 
-    
+
 class Place(BaseModel, Base):
     """Representation of Place """
     if getenv('HBNB_TYPE_STORAGE') == 'db':
