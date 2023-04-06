@@ -64,4 +64,3 @@ sudo nginx -t
 if sudo nginx -t >/dev/null 2>&1; then
         sudo service nginx restart
 fi
-
