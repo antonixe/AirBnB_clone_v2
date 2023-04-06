@@ -5,7 +5,7 @@ A script to deploy an archive file to a remote server and decompress it.
 import os.path
 from fabric.api import env, put, run
 
-env.hosts = ['54.162.93.251', '100.25.3.37']
+env.hosts = ['54.144.221.234', '100.26.154.245']
 env.key_filename = '~/.ssh/school'
 env.user = 'ubuntu'
 
