@@ -1,26 +1,25 @@
-#!/usr/bin/python3
-"""a fabric script to create an archive file"""
+#!/usr/bin/env python3
+"""Fabric script that generates a .tgz archive from the contents
+of the web_static folder of your AirBnB Clone repo."""
+
 from fabric.api import local
 from datetime import datetime
 
-def do_pack():
-    """ a method to compress a file and return it's path """
-    
-    """saving the current time"""
-    time_now = datetime.now().strftime("%Y%m%d%H%M%S")
-    file_path = "versions/web_static_{}.tgz".format(time_now)
-   
-    try:
-        """create a directory"""
-        local("mkdir -p versions")
-         
-        """create an archive file"""
-        local("tar -cvzf {} web_static/".format(file_path))
-        
-        """return the path to the archive file created"""
-        return "{}".format(file_path)
 
-    except Exception as e:
-        print("An error occurred: {}".format(str(e)))
+def do_pack():
+    """Generates a .tgz archive from the contents of the web_static folder
+    """
+    local("mkdir -p versions")
+
+    time_format = "%Y%m%d%H%M%S"
+    
+    archive_name = "web_static_{}.tgz".format(
+        datetime.utcnow().strftime(time_format))
+    
+    command = "tar -cvzf versions/{} web_static".format(archive_name)
+    
+    result = local(command)
+    if result.failed:
         return None
+    return "versions/{}".format(archive_name)
 
