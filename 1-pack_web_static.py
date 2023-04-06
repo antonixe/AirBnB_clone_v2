@@ -17,7 +17,7 @@ def do_pack():
     """compiress contents of web_static into archive"""
     try:
         if not os.path.exists("versions")
-	    local("mkdir -p versions")
+            local("mkdir -p versions")
         local("tar -cvzf versions/{} w`eb_static".format(archive_name))
         return "versions/{}".format(archive_name)
     except Exception as e:
