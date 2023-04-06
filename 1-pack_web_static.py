@@ -14,12 +14,11 @@ def do_pack():
     now = datetime.now().strftime("%Y%m%d%H%M%S")
     archive_name = "web_static_{}.tgz".format(now)
 
-    """compress contents of web_static into archive"""
+    """compiress contents of web_static into archive"""
     try:
-   	if not os.path.exists("versions")
-		local("mkdir -p versions")
-
-        local("tar -cvzf versions/{} web_static".format(archive_name))
+        if not os.path.exists("versions")
+	    local("mkdir -p versions")
+        local("tar -cvzf versions/{} w`eb_static".format(archive_name))
         return "versions/{}".format(archive_name)
     except Exception as e:
         return None
